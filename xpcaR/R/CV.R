@@ -81,15 +81,15 @@ xpca_cv <- function(data,
     this_data[these_indices] = NA
     if(any(methods == "xpca")){
       fit = xpca(this_data, rank = rank)
-      xpca_ests[these_indices] = fit$meanEsts[these_indices]
+      xpca_ests[these_indices] = fit$fittedEsts[these_indices]
     }
     if(any(methods == "pca")){
       fit = pca(this_data, rank = rank)
-      pca_ests[these_indices] = fit$meanEsts[these_indices]
+      pca_ests[these_indices] = fit$fittedEsts[these_indices]
     }
     if(any(methods == "coca")){
       fit = coca(this_data, rank = rank)
-      coca_ests[these_indices] = fit$meanEsts[these_indices]
+      coca_ests[these_indices] = fit$fittedEsts[these_indices]
     }
     if(any(methods == "col_mean")){
       these_col_mean_vec = colMeans(this_data, na.rm = TRUE)
@@ -175,7 +175,7 @@ xpca_ise = function(data,
   cnames <- colnames(data)
   if(any(methods == "xpca")){
     fit <- xpca(data, rank)
-    ests <- fit$meanEsts
+    ests <- fit$fittedEsts
     loss_vec <- NULL
     for(j in 1:ncol(data)){ loss_vec[j] = lossFun(data[,j], ests[,j], j)}
     names(loss_vec) <- cnames
@@ -187,7 +187,7 @@ xpca_ise = function(data,
   
   if(any(methods == "pca")){
     fit <- pca(data, rank)
-    ests <- fit$meanEsts
+    ests <- fit$fittedEsts
     loss_vec <- NULL
     for(j in 1:ncol(data)){ loss_vec[j] = lossFun(data[,j], ests[,j], j)}
     names(loss_vec) <- cnames
@@ -199,7 +199,7 @@ xpca_ise = function(data,
   
   if(any(methods == "coca")){
     fit <- coca(data, rank)
-    ests <- fit$meanEsts
+    ests <- fit$fittedEsts
     loss_vec <- NULL
     for(j in 1:ncol(data)){ loss_vec[j] = lossFun(data[,j], ests[,j], j)}
     names(loss_vec) <- cnames
@@ -274,7 +274,7 @@ xpca_iv = function(data,
         i = ((e-1) %% m) + 1
         j = floor((e-1) / m) + 1
         ints = getPredictionInterval(i, j,fit.xpca,predLevel=pred.level)
-        if (fit.xpca$meanEsts[e] > ints[1] && fit.xpca$meanEsts[e] < ints[2]) {
+        if (fit.xpca$fittedEsts[e] > ints[1] && fit.xpca$fittedEsts[e] < ints[2]) {
             count = count + 1
         }
     }

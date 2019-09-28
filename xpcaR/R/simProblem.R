@@ -24,9 +24,11 @@ MC_expMean <- function(MC = 1000,
 #' @param nCol Number of columns
 #' @param sigma Controls amount of white noise on top of low-rank structure
 #' @param propBinary Proportion of columns that will be binary
+#' @param offset Global mean of low-rank structure
 #' @param rank Dimension of underlying low-rank space
 simProblem <- function(nRow = 100, nCol = 100, 
-                        sigma = 0.5, propBinary = 0, 
+                        sigma = 0.25, propBinary = 0.5, 
+                        offset = 1,
                         rank = 3){
   if(sigma > 1 | sigma < 0) stop("sigma must be in [0,1]")
   # Step 1: Simulating V
@@ -36,7 +38,7 @@ simProblem <- function(nRow = 100, nCol = 100,
   
   # Step 2: Simulating Theta. Note that the random noise
   # has NOT been placed on top yet
-  theta = mvtnorm::rmvnorm(nRow, sigma = VV_t)
+  theta = mvtnorm::rmvnorm(nRow, sigma = VV_t) + offset
   
   # Step 4: Setting binary columns
   isBinary = rep(F, nCol)
