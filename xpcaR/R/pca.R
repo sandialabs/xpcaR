@@ -6,6 +6,9 @@
 #' @param rescale Should each column be scaled?
 #' @param max_iter Maximum iterations
 #' @param post_svd Should decomposition be post processed with svd?
+#' @examples 
+#' data = simProblem()$data
+#' fit = pca(data, rank = 2)
 pca <- function(data, rank, 
                 tol = 0.1, 
                 rescale = T, 

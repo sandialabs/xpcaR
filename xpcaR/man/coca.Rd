@@ -15,4 +15,12 @@ coca(data, rank, verbose = F, post_svd = T)
 
 \item{post_svd}{Should decomposition be post-processed with svd?}
 }
-
+\description{
+Compute COCA decomposition of a matrix. 
+For purely continuous data, will be nearly identical to `xpca` 
+with less preprocessing.
+}
+\examples{
+test_data = simProblem()$data
+rank3_fit = coca(test_data, rank = 3)
+}

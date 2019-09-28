@@ -19,9 +19,15 @@ MC_expMean <- function(MC = 1000,
 }
 
 #' @export
+#' @title Simulate Low-Rank Copula Data
+#' @param nRow Number of rows
+#' @param nCol Number of columns
+#' @param sigma Controls amount of white noise on top of low-rank structure
+#' @param propBinary Proportion of columns that will be binary
+#' @param rank Dimension of underlying low-rank space
 simProblem <- function(nRow = 100, nCol = 100, 
                         sigma = 0.5, propBinary = 0, 
-                        contError = "normal", rank = 3){
+                        rank = 3){
   if(sigma > 1 | sigma < 0) stop("sigma must be in [0,1]")
   # Step 1: Simulating V
   V_raw = matrix(rnorm(rank * nCol), nrow = nCol)
@@ -43,14 +49,7 @@ simProblem <- function(nRow = 100, nCol = 100,
       meanMatrix[,j] = pnorm(theta[,j], sd = sigma)
     }
     else{
-      if(contError == "normal"){
         meanMatrix[,j] = theta[,j]
-      }
-      else if(contError == "exp"){
-        thisColMean = MC_expMean(cop_mu = theta[,j], 
-                                 sigma = sigma)
-        meanMatrix[,j] = thisColMean$means
-      }
     }
   }
   # Step 6: Simulating data
@@ -59,12 +58,7 @@ simProblem <- function(nRow = 100, nCol = 100,
   for(j in 1:nCol){
     if(isBinary[j]){ dataMatrix[,j] = copMatrix[,j] > 0 }
     else{
-      if(contError == "normal"){
-        dataMatrix[,j] = copMatrix[,j]
-      }
-      else if(contError == "exp"){
-        dataMatrix[,j] = qexp(pnorm(copMatrix[,j]))
-      }
+      dataMatrix[,j] = copMatrix[,j]
     }
   }
   ans = list(data = dataMatrix, 
@@ -72,7 +66,6 @@ simProblem <- function(nRow = 100, nCol = 100,
   return(ans)
 }
 
-#' @export
 simProblemOld = function(m = 100, 
                       n = 100, 
                       propBinary = .9, 

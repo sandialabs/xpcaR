@@ -4,8 +4,17 @@
 \alias{xpca}
 \title{XPCA}
 \usage{
-xpca(data, rank, tol = 0.1, maxEvals = 1000, updateSigma = T,
-  opt = "AN", reg_val = 0.5, post_svd = T, gridSize = nrow(data)/10)
+xpca(
+  data,
+  rank,
+  tol = 0.1,
+  maxEvals = 1000,
+  updateSigma = T,
+  opt = "AN",
+  reg_val = 0.5,
+  post_svd = T,
+  gridSize = nrow(data)/10
+)
 }
 \arguments{
 \item{data}{Data matrix or data.frame}
@@ -22,4 +31,10 @@ xpca(data, rank, tol = 0.1, maxEvals = 1000, updateSigma = T,
 
 \item{gridSize}{Number of points used to approximate mean function}
 }
-
+\description{
+XPCA
+}
+\examples{
+data = simProblem()$data
+fit = xpca(data, rank = 2)
+}

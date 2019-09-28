@@ -4,8 +4,7 @@
 \alias{xpca_iv}
 \title{Validation using interval imputations}
 \usage{
-xpca_iv(data, rank = 1, leaveout = 0.25, pred.level = 0.9,
-  per.column = NaN)
+xpca_iv(data, rank = 1, leaveout = 0.25, pred.level = 0.9, per.column = NaN)
 }
 \arguments{
 \item{data}{Matrix or data frame}
@@ -18,4 +17,6 @@ xpca_iv(data, rank = 1, leaveout = 0.25, pred.level = 0.9,
 
 \item{per.column}{If not NaN, compute only for that column}
 }
-
+\description{
+Validation using interval imputations
+}

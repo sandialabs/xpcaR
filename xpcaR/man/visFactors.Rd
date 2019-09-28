@@ -13,4 +13,6 @@ visFactors(decomp, usenames = T, ...)
 
 \item{...}{additional arguments passed to `plot`}
 }
-
+\description{
+Visualizing Decomposition Factors
+}

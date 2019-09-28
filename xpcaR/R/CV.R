@@ -28,6 +28,9 @@ cv_rmse = function(x_true, x_est, col_index = 1){
 #' @param methods Decomposition methods used 
 #' @param rank Rank of decomposition
 #' @param lossFun Function for computing column by column loss
+#' @examples 
+#' data = simProblem()$data
+#' xpca_cv(data, rank = 2)
 #' @export
 xpca_cv <- function(data, 
                     folds = 4, 
@@ -157,6 +160,9 @@ xpca_cv <- function(data,
 #' @param methods Decomposition methods used 
 #' @param rank Rank of decomposition
 #' @param lossFun Function for computing column by column loss
+#' @examples 
+#' data = simProblem()$data
+#' xpca_ise(data, rank = 2)
 #' @export
 xpca_ise = function(data, 
                    methods = c("pca", "xpca", "coca", "col_mean"), 
@@ -231,7 +237,6 @@ xpca_ise = function(data,
 #' @param leaveout Percent of observations to remove and validate 
 #' @param pred.level Confidence of prediction interval
 #' @param per.column If not NaN, compute only for that column
-#' @export
 xpca_iv = function(data, 
                    rank  = 1,
                     leaveout = 0.25,

@@ -8,6 +8,9 @@
 #'@param reg_val Value used to regularize max intervals. 
 #'@param post_svd Should svd be used to standardize decomposition?
 #'@param gridSize Number of points used to approximate mean function
+#'@examples
+#'data = simProblem()$data
+#'fit = xpca(data, rank = 2)
 #'@export
 xpca = function(data, rank, tol = 0.1,
                 maxEvals = 1000, 

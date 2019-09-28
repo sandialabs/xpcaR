@@ -19,4 +19,10 @@ pca(data, rank, tol = 0.1, rescale = T, max_iter = 500, post_svd = T)
 
 \item{post_svd}{Should decomposition be post processed with svd?}
 }
-
+\description{
+PCA
+}
+\examples{
+data = simProblem()$data
+fit = pca(data, rank = 2)
+}

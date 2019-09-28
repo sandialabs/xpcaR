@@ -4,10 +4,11 @@
 #'@param verbose Should log-likelihood be printed at every step?
 #'@param post_svd Should decomposition be post-processed with svd?
 #'@description Compute COCA decomposition of a matrix. 
-#'For purely continuous data, will be nearly identical `xpca` 
+#'For purely continuous data, will be nearly identical to `xpca` 
 #'with less preprocessing. 
-#'@example 
-#'
+#'@examples 
+#' test_data = simProblem()$data
+#' rank3_fit = coca(test_data, rank = 3)
 #'@export
 coca = function(data, rank, verbose = F, 
                 post_svd = T){

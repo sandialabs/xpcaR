@@ -1,7 +1,6 @@
 #' @import data.table mltools
 NULL
 
-#' @export
 softMax_fix <- function(xpca_fit, orgColNames){
   ests = xpca_fit$meanEsts
   expandedColNames = colnames(ests)
@@ -24,7 +23,6 @@ softMax_fix <- function(xpca_fit, orgColNames){
   return(xpca_fit)
 }
 
-#' @export
 expandData <- function(df){
   dt <- data.table::as.data.table(df)
   ans = mltools::one_hot(dt, dropUnusedLevels = T)
@@ -32,7 +30,6 @@ expandData <- function(df){
   return(ans)
 }
 
-#' @export
 xpca_cv_cat <- function(data, 
                    folds = 4, 
                    methods = c("pca", "xpca", "coca"), 
@@ -148,7 +145,6 @@ xpca_cv_cat <- function(data,
   return(ans)
 }
 
-#' @export
 dropRareOutcome_one <- function(factor, min = 10){
   tabledValues <- table(factor)
   isTooSmall <- which(tabledValues < min)
@@ -160,7 +156,6 @@ dropRareOutcome_one <- function(factor, min = 10){
   return(factor)
 }
 
-#' @export
 dropRareOutcome <- function(data, min = 10){
   for(j in 1:ncol(data)){
     if(is.factor(data[,j])){

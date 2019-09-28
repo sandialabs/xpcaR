@@ -20,4 +20,3 @@ estimates **only for the data that was left out** will be
 fed into this function. As such, this function must be able to ignore
 missing data
 }
-

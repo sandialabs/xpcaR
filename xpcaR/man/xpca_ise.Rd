@@ -4,8 +4,12 @@
 \alias{xpca_ise}
 \title{In Sample Error for MXD methods}
 \usage{
-xpca_ise(data, methods = c("pca", "xpca", "coca", "col_mean"), rank = 1,
-  lossFun = cv_rmse)
+xpca_ise(
+  data,
+  methods = c("pca", "xpca", "coca", "col_mean"),
+  rank = 1,
+  lossFun = cv_rmse
+)
 }
 \arguments{
 \item{data}{Matrix or data frame}
@@ -16,4 +20,10 @@ xpca_ise(data, methods = c("pca", "xpca", "coca", "col_mean"), rank = 1,
 
 \item{lossFun}{Function for computing column by column loss}
 }
-
+\description{
+In Sample Error for MXD methods
+}
+\examples{
+data = simProblem()$data
+xpca_ise(data, rank = 2)
+}

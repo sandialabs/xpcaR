@@ -7,4 +7,5 @@ Author: Clifford Anderson-Bergman
 Maintainer: Clifford Anderson-Bergman <pistacliffcho@gmail.com>
 Description: Copula based PCA that accounts for discrete variables
 License: BSD-2
-RoxygenNote: 6.1.1
+RoxygenNote: 6.1.99.9001
+Encoding: UTF-8
