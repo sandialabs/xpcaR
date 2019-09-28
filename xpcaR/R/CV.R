@@ -30,30 +30,21 @@ cv_rmse = function(x_true, x_est, col_index = 1){
 #' @param lossFun Function for computing column by column loss
 #' @examples 
 #' data = simProblem()$data
-#' xpca_cv(data, rank = 2)
+#' res = xpca_cv(data, rank = 2)
+#' # Results are all saved errors for forensics
+#' res$error_stats
 #' @export
 xpca_cv <- function(data, 
                     folds = 4, 
                     methods = c("pca", "xpca", "coca", "col_mean"), 
                     rank  = 1, 
-                    lossFun = cv_rmse,
-                    per.column=NA){
-  
+                    lossFun = cv_rmse){
+
   cnames = colnames(data)
   data_mat = as.matrix(data)
 
   # Determining which data is observed
-  # Get obs
-  if (!is.na(per.column)) {
-      m = nrow(data)
-      # Get the rows in which that column has no missing
-      is_obs = which(!is.na(data_mat[,per.column])) 
-      # Convert to indices
-      is_obs = is_obs + ((per.column-1)*m)
-  }
-  else {
-      is_obs = which(!is.na(data_mat)) 
-  }
+  is_obs = which(!is.na(data_mat)) 
   n_obs = length(is_obs)
 
   # Setting up random partitions
@@ -150,19 +141,27 @@ xpca_cv <- function(data,
   colnames(colLossMat) = names(colLoss_list)
   names(summary_vec) = summary_vec_names
   ans = list(error_stats = summary_vec, 
-             colLosses = as.data.frame(colLossMat),
-             fullEsts = full_ests)
+             colLosses = as.data.frame(colLossMat))
   return(ans)
 }
 
 #' @title In Sample Error for MXD methods
 #' @param data Matrix or data frame
-#' @param methods Decomposition methods used 
+#' @param methods Decomposition methods used. Column mean is included as baseline.
 #' @param rank Rank of decomposition
 #' @param lossFun Function for computing column by column loss
+#' @return 
+#' A list with the following fields:
+#' 
+#'   - \code{error_stats} Overall cross-validation error for each method
+#'   
+#'   - \code{colLosses} Cross-validation error for each method, broken up by column
+#' 
 #' @examples 
 #' data = simProblem()$data
-#' xpca_ise(data, rank = 2)
+#' res = xpca_ise(data, rank = 2)
+#' # Results are all saved errors for forensics
+#' res$error_stats
 #' @export
 xpca_ise = function(data, 
                    methods = c("pca", "xpca", "coca", "col_mean"), 
@@ -226,8 +225,7 @@ xpca_ise = function(data,
   
   names(summary_vec) = summary_vec_names
   ans = list(error_stats = summary_vec, 
-             colLosses = colLoss_list, 
-             fullEsts = fullEsts)
+             colLosses = colLoss_list)
   return(ans)
 }
 
@@ -237,6 +235,7 @@ xpca_ise = function(data,
 #' @param leaveout Percent of observations to remove and validate 
 #' @param pred.level Confidence of prediction interval
 #' @param per.column If not NaN, compute only for that column
+#' @noRd
 xpca_iv = function(data, 
                    rank  = 1,
                     leaveout = 0.25,

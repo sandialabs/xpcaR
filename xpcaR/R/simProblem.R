@@ -26,10 +26,16 @@ MC_expMean <- function(MC = 1000,
 #' @param propBinary Proportion of columns that will be binary
 #' @param offset Global mean of low-rank structure
 #' @param rank Dimension of underlying low-rank space
+#' @return 
+#' A list with the following fields:
+#' 
+#'   - \code{data} Random data
+#'   - \code{meanMat} Mean of random data
+#' 
 simProblem <- function(nRow = 100, nCol = 100, 
                         sigma = 0.25, propBinary = 0.5, 
                         offset = 1,
-                        rank = 3){
+                        rank = 2){
   if(sigma > 1 | sigma < 0) stop("sigma must be in [0,1]")
   # Step 1: Simulating V
   V_raw = matrix(rnorm(rank * nCol), nrow = nCol)

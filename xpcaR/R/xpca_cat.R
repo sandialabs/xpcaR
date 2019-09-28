@@ -1,6 +1,3 @@
-#' @import data.table mltools
-NULL
-
 softMax_fix <- function(xpca_fit, orgColNames){
   ests = xpca_fit$meanEsts
   expandedColNames = colnames(ests)

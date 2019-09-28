@@ -7,7 +7,7 @@
 visFactors(decomp, usenames = T, ...)
 }
 \arguments{
-\item{decomp}{An MXD::pca, coca or XPCA object}
+\item{decomp}{An xpcaR::pca, coca or XPCA object}
 
 \item{usenames}{Should row/column names be plotted?}
 

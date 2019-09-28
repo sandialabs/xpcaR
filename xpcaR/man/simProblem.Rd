@@ -4,7 +4,14 @@
 \alias{simProblem}
 \title{Simulate Low-Rank Copula Data}
 \usage{
-simProblem(nRow = 100, nCol = 100, sigma = 0.5, propBinary = 0, rank = 3)
+simProblem(
+  nRow = 100,
+  nCol = 100,
+  sigma = 0.25,
+  propBinary = 0.5,
+  offset = 1,
+  rank = 2
+)
 }
 \arguments{
 \item{nRow}{Number of rows}
@@ -15,7 +22,15 @@ simProblem(nRow = 100, nCol = 100, sigma = 0.5, propBinary = 0, rank = 3)
 
 \item{propBinary}{Proportion of columns that will be binary}
 
+\item{offset}{Global mean of low-rank structure}
+
 \item{rank}{Dimension of underlying low-rank space}
+}
+\value{
+A list with the following fields:
+
+  - \code{data} Random data
+  - \code{meanMat} Mean of random data
 }
 \description{
 Simulate Low-Rank Copula Data

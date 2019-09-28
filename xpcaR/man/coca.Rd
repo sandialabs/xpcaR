@@ -15,12 +15,35 @@ coca(data, rank, verbose = F, post_svd = T)
 
 \item{post_svd}{Should decomposition be post-processed with svd?}
 }
+\value{
+A list with the following fields:
+
+   - \code{A}: Low-rank representation of rows
+   
+   - \code{B}: Low-rank representation of columns
+   
+   - \code{fittedEsts}: Low-rank representation of full data matrix
+   
+Other fields are for internal use.
+}
 \description{
-Compute COCA decomposition of a matrix. 
-For purely continuous data, will be nearly identical to `xpca` 
-with less preprocessing.
+Computes low-rank COCA decomposition of data. 
+Can be used with missing data.
+}
+\details{
+Copula-based decomposition, where all data is treated as
+continuous. 
+
+For technical details:
+
+Fang Han and Han Liu. Semiparametric principal component analysis. 
+In NIPS’12: 
+Proceedings of the 26th Annual Conference on Neural Information 
+Processing Systems, pages 171–179, 2012.
+
+http://papers.nips.cc/paper/4809-semiparametric-principal-component-analysis.
 }
 \examples{
 test_data = simProblem()$data
-rank3_fit = coca(test_data, rank = 3)
+fit = coca(test_data, rank = 2)
 }

@@ -9,8 +9,7 @@ xpca_cv(
   folds = 4,
   methods = c("pca", "xpca", "coca", "col_mean"),
   rank = 1,
-  lossFun = cv_rmse,
-  per.column = NA
+  lossFun = cv_rmse
 )
 }
 \arguments{
@@ -29,5 +28,7 @@ Cross validation for MXD methods
 }
 \examples{
 data = simProblem()$data
-xpca_cv(data, rank = 2)
+res = xpca_cv(data, rank = 2)
+# Results are all saved errors for forensics
+res$error_stats
 }

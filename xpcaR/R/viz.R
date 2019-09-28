@@ -18,7 +18,7 @@ vis1factor <- function(fact_ind, factors,
 }
 
 #' @title Visualizing Decomposition Factors
-#' @param decomp An MXD::pca, coca or XPCA object
+#' @param decomp An xpcaR::pca, coca or XPCA object
 #' @param usenames Should row/column names be plotted?
 #' @param ... additional arguments passed to `plot`
 #' @export
