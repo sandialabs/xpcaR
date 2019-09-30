@@ -19,4 +19,23 @@ pca(data, rank, tol = 0.1, rescale = T, max_iter = 500, post_svd = T)
 
 \item{post_svd}{Should decomposition be post processed with svd?}
 }
+\value{
+A list with the following fields:
 
+   - \code{A}: Low-rank representation of rows
+   
+   - \code{B}: Low-rank representation of columns
+   
+   - \code{fittedEsts}: Low-rank representation of full data matrix
+   
+Other fields are for internal use.
+}
+\description{
+Computes low-rank PCA decomposition of data. 
+Preprocessing includes centering and rescaling of each column. 
+Can be used with missing data.
+}
+\examples{
+data = simProblem()$data
+fit = pca(data, rank = 2)
+}

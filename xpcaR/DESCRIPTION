@@ -1,10 +1,17 @@
 Package: xpcaR
 Type: Package
-Title: xpcaR
+Title: XPCA: Extending PCA for Ordinal Variables
 Version: 0.1.0
-Date: 2018-03-20
-Author: Clifford Anderson-Bergman
-Maintainer: xpca@sandia.gov
-Description: Copula based PCA that accounts for discrete variables
-License: BSD-2
-RoxygenNote: 5.0.1
+Date: 2019-10-1
+Author: Clifford Anderson-Bergman and Sandia National Labs
+Maintainer: Clifford Anderson-Bergman <pistacliffcho@gmail.com>, xpca@sandia.gov
+Description: Copula based PCA that accounts for discrete variables.
+License: BSD + file LICENSE
+Imports: 
+  data.table, 
+  mltools, 
+  mvtnorm, 
+  nloptr, 
+  methods
+RoxygenNote: 6.1.99.9001
+Encoding: UTF-8

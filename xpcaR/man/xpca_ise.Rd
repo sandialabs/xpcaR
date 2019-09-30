@@ -4,16 +4,35 @@
 \alias{xpca_ise}
 \title{In Sample Error for MXD methods}
 \usage{
-xpca_ise(data, methods = c("pca", "xpca", "coca", "col_mean"), rank = 1,
-  lossFun = cv_rmse)
+xpca_ise(
+  data,
+  methods = c("pca", "xpca", "coca", "col_mean"),
+  rank = 1,
+  lossFun = cv_rmse
+)
 }
 \arguments{
 \item{data}{Matrix or data frame}
 
-\item{methods}{Decomposition methods used}
+\item{methods}{Decomposition methods used. Column mean is included as baseline.}
 
 \item{rank}{Rank of decomposition}
 
 \item{lossFun}{Function for computing column by column loss}
 }
+\value{
+A list with the following fields:
 
+  - \code{error_stats} Overall cross-validation error for each method
+  
+  - \code{colLosses} Cross-validation error for each method, broken up by column
+}
+\description{
+In Sample Error for MXD methods
+}
+\examples{
+data = simProblem()$data
+res = xpca_ise(data, rank = 2)
+# Results are all saved errors for forensics
+res$error_stats
+}

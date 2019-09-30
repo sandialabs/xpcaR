@@ -1,21 +1,50 @@
-#'@import nloptr
-
-#'@title XPCA
-#'@param data Data matrix or data.frame
-#'@param rank Rank of decomposition
-#'@param maxEvals Maximum evaluations of loss function for L-BFGS
-#'@param updateSigma Should sigma be updated during optimization or after?
-#'@param reg_val Value used to regularize max intervals. 
-#'@param post_svd Should svd be used to standardize decomposition?
-#'@param gridSize Number of points used to approximate mean function
-#'@export
+#' @title XPCA
+#' @description Computes low-rank XPCA decomposition of data. 
+#' Can be used with missing data. If all data is continuous, 
+#' estimates will be very close to those provided by COCA. 
+#' If marginal distribution of all columns is approximately 
+#' Gaussian, both COCA + XPCA estimates will be very close 
+#' to those provided by PCA. 
+#' @param data Data matrix or data.frame
+#' @param rank Rank of decomposition
+#' @param tol Tolerance; if change in LLK is below this value, algorithm terminates
+#' @param maxIters Maximum iterations
+#' @param opt Optimization algorithm to use. Options are "LBFGS" or "AN" (Alternating Newton's)
+#' @param reg_val Value used to regularize max intervals. Prevents Hauck-Donner effect. 
+#' @param post_svd Should svd be used to standardize decomposition?
+#' @param gridSize Number of points used to approximate mean function
+#' @details Copula-based decomposition, 
+#' where all data is treated as ordinal. 
+#' 
+#' For technical details, see:
+#' 
+#' C. Anderson-Bergman, T. G. Kolda, K. Kincher-Winoto. 
+#' XPCA: Extending PCA for a 
+#' Combination of Discrete and Continuous Variables. 
+#' arXiv:1808.07510, 2018
+#' 
+#' @return 
+#' A list with the following fields:
+#' 
+#'    - \code{A}: Low-rank representation of rows
+#'    
+#'    - \code{B}: Low-rank representation of columns
+#'    
+#'    - \code{fittedEsts}: Data estimates of low-rank 
+#'    representation of full data matrix
+#'    
+#' Other fields are for internal use. 
+#' @examples
+#'data = simProblem()$data
+#'fit = xpca(data, rank = 2)
+#' @export
 xpca = function(data, rank, tol = 0.1,
-                maxEvals = 1000, 
-                updateSigma = T, 
+                maxIters = 1000, 
                 opt = "AN", 
                 reg_val = 0.5, 
                 post_svd = T, 
                 gridSize = nrow(data)/10){
+  updateSigma = T
   data = as.matrix(data)
   # Construct [L,R] interval for each data point
   LR_list = raw2intervals(data, "m", reg_val)
@@ -49,7 +78,7 @@ xpca = function(data, rank, tol = 0.1,
                       gr = xpca_opter$flatDerv_fromVec,
                       lower = lowerBnds, upper = upperBnds,
                       control = list(ftol_abs = tol, 
-                                     maxeval = maxEvals), 
+                                     maxeval = maxIters)
                       )
   
     if(opt_res$convergence < 0){ 
@@ -72,7 +101,7 @@ xpca = function(data, rank, tol = 0.1,
                                   LR_list$L, LR_list$R, 
                                   update_s = updateSigma)
     opt_res <- xpca_opter$alt_newtons(tol = tol, 
-                           max_iters = maxEvals, 
+                           max_iters = maxIters, 
                            verbose = F)
     
     final_loss = opt_res["loss"]
@@ -326,8 +355,8 @@ computeColMean_approx <- function(col_index, sigma,
 }
 
 ## USER UTILITY FUNCTIONS
+#  Currently not exported
 
-#' @export
 getConditionalPMF <- function(i, j, xpca_fit){
   if(!is(xpca_fit, "xpca_class")) stop("xpca_fit must be of class xpca_class")
   s = xpca_fit$s
@@ -343,7 +372,6 @@ getConditionalPMF <- function(i, j, xpca_fit){
   return(ans)
 }
 
-#' @export
 getPredictionInterval <- function(i, j, 
                                   xpca_fit, 
                                   predLevel = .95){

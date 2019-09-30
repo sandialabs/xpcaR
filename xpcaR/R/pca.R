@@ -1,11 +1,27 @@
 #' @export
 #' @title PCA
+#' @description Computes low-rank PCA decomposition of data. 
+#' Preprocessing includes centering and rescaling of each column. 
+#' Can be used with missing data. 
 #' @param data matrix or data.frame
 #' @param rank Rank of decomposition
 #' @param tol Rank of tolerance used to assess convergence
 #' @param rescale Should each column be scaled?
 #' @param max_iter Maximum iterations
 #' @param post_svd Should decomposition be post processed with svd?
+#' @return 
+#' A list with the following fields:
+#' 
+#'    - \code{A}: Low-rank representation of rows
+#'    
+#'    - \code{B}: Low-rank representation of columns
+#'    
+#'    - \code{fittedEsts}: Low-rank representation of full data matrix
+#'    
+#' Other fields are for internal use. 
+#' @examples 
+#' data = simProblem()$data
+#' fit = pca(data, rank = 2)
 pca <- function(data, rank, 
                 tol = 0.1, 
                 rescale = T, 
