@@ -4,7 +4,7 @@ Title: XPCA: Extending PCA for Ordinal Variables
 Version: 0.1.0
 Date: 2019-10-1
 Author: Clifford Anderson-Bergman and Sandia National Labs
-Maintainer: Clifford Anderson-Bergman <pistacliffcho@gmail.com>, xpca@sandia.gov
+Maintainer: XPCA team <xpca@sandia.gov>
 Description: Copula based PCA that accounts for discrete variables.
 License: BSD + file LICENSE
 Imports: 
