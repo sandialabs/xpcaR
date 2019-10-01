@@ -37,6 +37,13 @@ Michael E. Tipping and Christopher M. Bishop. Probabilistic principal component 
 
 
 ## Install
+
+From R:
+```
+R> devtools::install_gitlab("xpca/xpcar/xpcaR")
+```
+
+Locally from command line:
 ```
 $ R CMD INSTALL xpcaR
 ```
